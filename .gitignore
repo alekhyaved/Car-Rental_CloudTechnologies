@@ -1,0 +1,7 @@
+car-rental-client/node_modules
+car-rental-server/target
+*/.DS_Store
+car-rental-server/.classpath
+car-rental-server/.project
+car-rental-server/.settings
+car-rental-server/HELP.md
