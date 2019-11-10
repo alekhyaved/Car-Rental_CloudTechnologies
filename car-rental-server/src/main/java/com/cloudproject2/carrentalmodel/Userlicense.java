@@ -8,14 +8,14 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(uniqueConstraints={@UniqueConstraint(columnNames={"emailid"})})
+@Table(uniqueConstraints={@UniqueConstraint(columnNames={"license"})})
 public class Userlicense {
 	
 	@Id
+	private String license;
 	private String emailid;
 	private String firstname;
 	private String lastname;
-	private String license;
 	private Date expiryDate;
 	
 	public Userlicense() {

@@ -12,7 +12,7 @@ public class CarRentalService {
 	@Autowired
 	private UserlicenseRepository userlicenseRepository;
 	
-	public Userlicense getUserLicenseDetails(String emailid) {
-		return userlicenseRepository.getUserlicense(emailid);	
+	public Userlicense getUserLicenseDetails(String license) {
+		return userlicenseRepository.getUserLicenseDetails(license);	
 	}
 }

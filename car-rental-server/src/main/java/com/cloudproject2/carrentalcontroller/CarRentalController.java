@@ -26,8 +26,8 @@ public class CarRentalController {
 	  public String bookACar(@RequestParam String firstname, @RequestParam String lastname,  @RequestParam String emailid, @RequestParam String license,
 			  @RequestParam Date startDate, @RequestParam Date endDate, @RequestParam String cartype) {
 	    try {
-	    	Userlicense userlicense = carRentalService.getUserLicenseDetails(emailid);
-	    	if(validateString(firstname, userlicense.getFirstname()) && validateString(lastname, userlicense.getLastname()) && validateString(license, userlicense.getLicense()) && endDate.before(userlicense.getExpiryDate())) {
+	    	Userlicense userlicense = carRentalService.getUserLicenseDetails(license);
+	    	if(validateString(firstname, userlicense.getFirstname()) && validateString(lastname, userlicense.getLastname()) && validateString(emailid, userlicense.getEmailid()) && endDate.before(userlicense.getExpiryDate())) {
 	    		return "Booking confirmed! We will send you details shortly";
 	    	}else {
 	    		return "Enter valid details";

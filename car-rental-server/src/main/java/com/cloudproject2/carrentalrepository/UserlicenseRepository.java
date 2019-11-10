@@ -6,6 +6,6 @@ import org.springframework.data.repository.query.Param;
 import com.cloudproject2.carrentalmodel.Userlicense;
 
 public interface UserlicenseRepository {
-	@Query("SELECT u FROM Userlicense u WHERE LOWER(u.emailid) = LOWER(:emailid)")
-    public Userlicense getUserlicense(@Param("emailid") String emailid);
+	@Query("SELECT u FROM Userlicense u WHERE LOWER(u.license) = LOWER(:license)")
+    public Userlicense getUserLicenseDetails(@Param("license") String license);
 }
