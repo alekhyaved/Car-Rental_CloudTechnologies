@@ -16,7 +16,7 @@ import com.amazonaws.services.lexruntime.model.PostTextResult;
 public class ChatbotService {
 	
 	@Value("${chatBotRegion}")
-    private String endpointUrl;
+    private String chatBotRegion;
     @Value("${chatBotaccessKey}")
     private String accessKey;
     @Value("${chatBotsecretKey}")
@@ -32,18 +32,22 @@ public class ChatbotService {
     		
 	public String Chatbot(String message) {
 		
-
-	    AWSCredentials awsCredss = new BasicAWSCredentials(this.accessKey, this.secretKey);
+		if(chatBotRegion != null &&  accessKey !=null && secretKey!=null && botName !=null && botAlias!=null && userId!=null ){
+	
+		    AWSCredentials awsCredss = new BasicAWSCredentials(this.accessKey, this.secretKey);
+			
+			AmazonLexRuntime client = AmazonLexRuntimeClientBuilder.standard().withCredentials(new AWSStaticCredentialsProvider(awsCredss)).withRegion(Regions.US_EAST_1).build();
+			
+			PostTextRequest text = new PostTextRequest();
+			text.setBotName(this.botName);
+			text.setBotAlias(this.botAlias);
+			text.setUserId(this.userId);
+			text.setInputText(message);
+			PostTextResult result= client.postText(text);
+			return result.getMessage();
+		}
+		return "";
 		
-		AmazonLexRuntime client = AmazonLexRuntimeClientBuilder.standard().withCredentials(new AWSStaticCredentialsProvider(awsCredss)).withRegion(Regions.US_EAST_1).build();
-		
-		PostTextRequest text = new PostTextRequest();
-		text.setBotName(this.botName);
-		text.setBotAlias(this.botAlias);
-		text.setUserId(this.userId);
-		text.setInputText(message);
-		PostTextResult result= client.postText(text);
-		return result.getMessage();
     }
 
 }
