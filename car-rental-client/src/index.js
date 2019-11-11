@@ -21,7 +21,7 @@ amplify.configure({
 ReactDOM.render(
   <BrowserRouter>
     <Route exact path="/" component={Loginpage} />
-    <Route exact path="/licence" component={RegisterLicence} />
+    <Route exact path="/license" component={RegisterLicence} />
     <Route exact path="/rentpage" component={RentCarPage} />
   </BrowserRouter>,
   document.getElementById("root")

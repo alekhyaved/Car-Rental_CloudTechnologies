@@ -2,6 +2,7 @@ import React from "react";
 import { withAuthenticator } from "aws-amplify-react";
 import { Auth } from "aws-amplify";
 import RentCarPage from "./RentCarPage";
+import { Redirect } from "react-router-dom";
 
 class LoginComponent extends React.Component {
   constructor(props, context) {
@@ -11,11 +12,7 @@ class LoginComponent extends React.Component {
     if (Auth.user.username === "admin1") {
       return <div>{/* adminpage component */}</div>;
     } else {
-      return (
-        <div>
-          <RentCarPage />
-        </div>
-      );
+      return <Redirect to="/license" />;
     }
   }
 }
