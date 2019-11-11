@@ -1,15 +1,13 @@
-package com.cloudproject2.carrentalservice;
+package com.cloudproject2.Service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cloudproject2.carrentalmodel.Userlicense;
-import com.cloudproject2.carrentalrepository.UserlicenseRepository;
+import com.cloudproject2.Model.Userlicense;
+import com.cloudproject2.Repository.UserlicenseRepository;
 
 @Service
 public class CarRentalService {
 	
-	@Autowired
 	private UserlicenseRepository userlicenseRepository;
 	
 	public Userlicense getUserLicenseDetails(String license) {

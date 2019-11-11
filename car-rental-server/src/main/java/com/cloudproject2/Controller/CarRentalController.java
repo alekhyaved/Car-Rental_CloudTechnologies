@@ -1,16 +1,14 @@
-package com.cloudproject2.carrentalcontroller;
+package com.cloudproject2.Controller;
 
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import com.cloudproject2.Model.Userlicense;
+import com.cloudproject2.Service.CarRentalService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import com.cloudproject2.carrentalmodel.Userlicense;
-import com.cloudproject2.carrentalservice.CarRentalService;
 
 @RestController
 public class CarRentalController {

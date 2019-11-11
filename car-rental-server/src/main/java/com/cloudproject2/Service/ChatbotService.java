@@ -1,4 +1,4 @@
-package com.cloudproject2.carrentalserver.Service;
+package com.cloudproject2.Service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

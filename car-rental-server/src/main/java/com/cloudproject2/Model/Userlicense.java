@@ -1,4 +1,4 @@
-package com.cloudproject2.carrentalmodel;
+package com.cloudproject2.Model;
 
 import java.util.Date;
 

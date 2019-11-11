@@ -1,4 +1,4 @@
-package com.cloudproject2.carrentalserver.Controller;
+package com.cloudproject2.Controller;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.cloudproject2.carrentalserver.Service.ChatbotService;
-
+import com.cloudproject2.Service.ChatbotService;
 
 @RestController
 @CrossOrigin(origins = "*")
