@@ -5,5 +5,5 @@ package com.cloudproject2.Service;
  */
 public interface VerificationService {
 
-  boolean isBlackListed(String s3Key);
+  boolean isBlacklisted(String s3Key);
 }

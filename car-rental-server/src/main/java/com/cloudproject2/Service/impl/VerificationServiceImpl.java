@@ -26,7 +26,7 @@ public class VerificationServiceImpl implements VerificationService {
   private String bucket;
 
   @Override
-  public boolean isBlackListed(String s3Key) {
+  public boolean isBlacklisted(String s3Key) {
     String collectionId = blackListCollection;
 
     // Get an image object from S3 bucket. The image MUST have a face, otherwise SDK will throw no

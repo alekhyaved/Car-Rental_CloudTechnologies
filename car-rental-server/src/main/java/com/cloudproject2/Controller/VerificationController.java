@@ -33,7 +33,7 @@ public class VerificationController {
    */
   @PostMapping("/driverLicense/check")
   public ResponseEntity<?> isBlackListed(@RequestParam String s3Key, HttpServletRequest request) {
-    return verificationService.isBlackListed(s3Key)
+    return verificationService.isBlacklisted(s3Key)
         ? new ResponseEntity<>(
             VerificationResponse.builder().result(Result.FAILED).build(), HttpStatus.BAD_REQUEST)
         : new ResponseEntity<>(
@@ -41,12 +41,12 @@ public class VerificationController {
   }
 
   /**
-   * Admin access: Add an image from S3 to black listed collection
+   * Admin access: Add an image from S3 to blacklisted collection
    *
    * @return
    */
-  @PostMapping("/driverLicense/blackList")
-  public ResponseEntity<?> blackListImage(String s3Key) {
+  @PostMapping("/driverLicense/blacklist")
+  public ResponseEntity<?> blacklistImage(String s3Key) {
     // TODO retrieve image from S3, extract index face and add to blacklisted collection
     return null;
   }
