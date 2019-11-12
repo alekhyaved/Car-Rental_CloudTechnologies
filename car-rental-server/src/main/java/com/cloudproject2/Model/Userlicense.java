@@ -72,5 +72,12 @@ public class Userlicense {
 		this.expiryDate = expiryDate;
 	}
 
+	@Override
+	public String toString() {
+		return "Userlicense [license=" + license + ", emailid=" + emailid + ", firstname=" + firstname + ", lastname="
+				+ lastname + ", expiryDate=" + expiryDate + "]";
+	}
+
+	
 	
 }
