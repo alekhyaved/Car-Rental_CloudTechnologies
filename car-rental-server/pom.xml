@@ -38,6 +38,11 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		<dependency>
+            <groupId>com.amazonaws</groupId>
+		    <artifactId>aws-java-sdk-rekognition</artifactId>
+  		  	<version>1.11.665</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
