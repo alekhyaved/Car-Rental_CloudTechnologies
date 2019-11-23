@@ -19,6 +19,7 @@ export default class Navbar extends Component {
     const { onStateChange } = this.props;
     Auth.signOut()
       .then(res => {
+        localStorage.clear();
         alert("Logged out");
       })
       .catch(err => alert(err));

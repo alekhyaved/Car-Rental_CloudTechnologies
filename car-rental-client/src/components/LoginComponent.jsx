@@ -8,6 +8,11 @@ class LoginComponent extends React.Component {
   constructor(props, context) {
     super(props, context);
   }
+
+  componentDidMount() {
+    localStorage.setItem("userName", Auth.user.username);
+  }
+
   render() {
     if (Auth.user.username === "admin1") {
       return <div>{/* adminpage component */}</div>;
