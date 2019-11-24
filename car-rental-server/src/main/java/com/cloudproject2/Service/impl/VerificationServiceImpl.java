@@ -3,9 +3,14 @@ package com.cloudproject2.Service.impl;
 import com.amazonaws.services.rekognition.AmazonRekognition;
 import com.amazonaws.services.rekognition.model.FaceMatch;
 import com.amazonaws.services.rekognition.model.Image;
+import com.amazonaws.services.rekognition.model.IndexFacesRequest;
+import com.amazonaws.services.rekognition.model.IndexFacesResult;
+import com.amazonaws.services.rekognition.model.QualityFilter;
 import com.amazonaws.services.rekognition.model.S3Object;
 import com.amazonaws.services.rekognition.model.SearchFacesByImageRequest;
 import com.amazonaws.services.rekognition.model.SearchFacesByImageResult;
+import com.cloudproject2.Model.Identification;
+import com.cloudproject2.Service.IdentificationService;
 import com.cloudproject2.Service.VerificationService;
 import java.util.List;
 import javax.annotation.Resource;
@@ -18,20 +23,25 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class VerificationServiceImpl implements VerificationService {
   @Resource private AmazonRekognition amazonRekognition;
+  @Resource private IdentificationService identificationService;
 
-  @Value("${blackListCollection}")
-  private String blackListCollection;
+  @Value("${blacklistCollection}")
+  private String blacklistCollection;
 
   @Value("${bucketName}")
-  private String bucket;
+  private String bucketName;
 
   @Override
-  public boolean isBlacklisted(String s3Key) {
-    String collectionId = blackListCollection;
+  public boolean isBlacklisted(long identificationId) {
+    String collectionId = blacklistCollection;
+
+    Identification identification = identificationService.getIdentification(identificationId);
+
+    String s3Key = identification.getS3Key();
 
     // Get an image object from S3 bucket. The image MUST have a face, otherwise SDK will throw no
     // face detected in image exception
-    Image image = new Image().withS3Object(new S3Object().withBucket(bucket).withName(s3Key));
+    Image image = new Image().withS3Object(new S3Object().withBucket(bucketName).withName(s3Key));
 
     // Search collection for faces similar to the largest face in the image.
     SearchFacesByImageRequest searchFacesByImageRequest =
@@ -47,5 +57,29 @@ public class VerificationServiceImpl implements VerificationService {
     List<FaceMatch> faceImageMatches = searchFacesByImageResult.getFaceMatches();
 
     return faceImageMatches.size() > 0;
+  }
+
+  @Override
+  public boolean blacklist(long identificationId) {
+    Identification id = identificationService.getIdentification(identificationId);
+    String s3Key = id.getS3Key();
+
+    Image image = new Image().withS3Object(new S3Object().withBucket(bucketName).withName(s3Key));
+
+    IndexFacesRequest indexFacesRequest =
+        new IndexFacesRequest()
+            .withImage(image)
+            .withQualityFilter(QualityFilter.AUTO)
+            .withMaxFaces(1)
+            .withCollectionId(blacklistCollection)
+            //            .withExternalImageId(s3Key)
+            .withDetectionAttributes("DEFAULT");
+
+    IndexFacesResult indexFacesResult = amazonRekognition.indexFaces(indexFacesRequest);
+
+    log.info("Results for " + s3Key);
+    log.info("Faces indexed: " + indexFacesResult);
+
+    return true;
   }
 }

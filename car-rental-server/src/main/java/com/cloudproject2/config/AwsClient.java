@@ -11,9 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * @author choang on 11/11/19
- */
+/** @author choang on 11/11/19 */
 @Configuration
 public class AwsClient {
   @Value("${accessKey}")
@@ -22,13 +20,12 @@ public class AwsClient {
   @Value("${secretKey}")
   private String secretKey;
 
-  @Value("${chatBotRegion}")
+  @Value("${region}")
   private String region;
 
   @Bean
   public AmazonS3 amazonS3() {
-    AWSCredentials credentials =
-        new BasicAWSCredentials(accessKey, secretKey);
+    AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
 
     return AmazonS3ClientBuilder.standard()
         .withCredentials(new AWSStaticCredentialsProvider(credentials))

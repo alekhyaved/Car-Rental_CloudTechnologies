@@ -30,10 +30,14 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.util.List;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 /** @author choang on 11/4/19 */
 public class RekognitionDemo {
+
+  private static final String collectionId = "blacklistCollection";
+  private static final String bucketName = "mssecarrental";
+
   @Test
   public void test() throws Exception {
     String photo = "/Users/choang/Downloads/mn-adult-dl.jpg";
@@ -96,7 +100,6 @@ public class RekognitionDemo {
   public void createCollection() {
     AmazonRekognition rekognitionClient = AmazonRekognitionClientBuilder.defaultClient();
 
-    String collectionId = "MyCollection";
     System.out.println("Creating collection: " + collectionId);
 
     CreateCollectionRequest request = new CreateCollectionRequest().withCollectionId(collectionId);
@@ -107,7 +110,7 @@ public class RekognitionDemo {
   }
 
   @Test
-  public void listCollection() {
+  public void listCollections() {
     AmazonRekognition amazonRekognition = AmazonRekognitionClientBuilder.defaultClient();
 
     System.out.println("Listing collections");
@@ -135,14 +138,14 @@ public class RekognitionDemo {
 
     String photo = "mn-adult-dl.jpg";
 
-    Image image = new Image().withS3Object(new S3Object().withBucket("bucket1029").withName(photo));
+    Image image = new Image().withS3Object(new S3Object().withBucket(bucketName).withName(photo));
 
     IndexFacesRequest indexFacesRequest =
         new IndexFacesRequest()
             .withImage(image)
             .withQualityFilter(QualityFilter.AUTO)
             .withMaxFaces(1)
-            .withCollectionId("MyCollection")
+            .withCollectionId(collectionId)
             .withExternalImageId(photo)
             .withDetectionAttributes("DEFAULT");
 
@@ -173,7 +176,6 @@ public class RekognitionDemo {
 
     ObjectMapper objectMapper = new ObjectMapper();
 
-    String collectionId = "MyCollection";
     ListFacesResult listFacesResult = null;
     System.out.println("Faces in collection " + collectionId);
 
@@ -202,12 +204,10 @@ public class RekognitionDemo {
     AmazonRekognition rekognitionClient = AmazonRekognitionClientBuilder.defaultClient();
 
     ObjectMapper objectMapper = new ObjectMapper();
-    String collectionId = "MyCollection";
-    String bucket = "bucket1029";
     String photo = "robert-downey-jr1.jpg"; // must have a face
 
     // Get an image object from S3 bucket.
-    Image image = new Image().withS3Object(new S3Object().withBucket(bucket).withName(photo));
+    Image image = new Image().withS3Object(new S3Object().withBucket(bucketName).withName(photo));
 
     // Search collection for faces similar to the largest face in the image.
     SearchFacesByImageRequest searchFacesByImageRequest =
