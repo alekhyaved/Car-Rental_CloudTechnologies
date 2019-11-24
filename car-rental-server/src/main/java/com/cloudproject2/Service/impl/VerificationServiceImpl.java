@@ -80,6 +80,9 @@ public class VerificationServiceImpl implements VerificationService {
     log.info("Results for " + s3Key);
     log.info("Faces indexed: " + indexFacesResult);
 
+    id.setBlacklisted(true);
+    identificationService.updateIdentification(id);
+
     return true;
   }
 }

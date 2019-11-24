@@ -6,6 +6,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 /** @author choang on 11/23/19 */
 public interface IdentificationService {
+  Identification updateIdentification(Identification identification);
+
   Identification createIdentification(String username, MultipartFile multipartFile);
 
   Identification getIdentification(long id);
