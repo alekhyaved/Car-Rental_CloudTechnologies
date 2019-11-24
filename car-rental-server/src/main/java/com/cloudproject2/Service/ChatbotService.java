@@ -15,11 +15,9 @@ import com.amazonaws.services.lexruntime.model.PostTextResult;
 @Service
 public class ChatbotService {
 	
-	@Value("${chatBotRegion}")
-    private String chatBotRegion;
-    @Value("${chatBotaccessKey}")
+    @Value("${accessKey}")
     private String accessKey;
-    @Value("${chatBotsecretKey}")
+    @Value("${secretKey}")
     private String secretKey;
     @Value("${botName}")
     private String botName;
@@ -32,8 +30,6 @@ public class ChatbotService {
     		
 	public String Chatbot(String message) {
 		
-		if(chatBotRegion != null &&  accessKey !=null && secretKey!=null && botName !=null && botAlias!=null && userId!=null ){
-	
 		    AWSCredentials awsCredss = new BasicAWSCredentials(this.accessKey, this.secretKey);
 			
 			AmazonLexRuntime client = AmazonLexRuntimeClientBuilder.standard().withCredentials(new AWSStaticCredentialsProvider(awsCredss)).withRegion(Regions.US_EAST_1).build();
@@ -45,9 +41,6 @@ public class ChatbotService {
 			text.setInputText(message);
 			PostTextResult result= client.postText(text);
 			return result.getMessage();
-		}
-		return "";
-		
-    }
+	}
 
 }
