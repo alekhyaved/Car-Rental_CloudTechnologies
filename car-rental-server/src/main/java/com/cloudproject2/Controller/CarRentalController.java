@@ -1,14 +1,19 @@
 package com.cloudproject2.Controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.cloudproject2.Model.Userlicense;
+import com.cloudproject2.Model.BookingDetails;
 import com.cloudproject2.Service.CarRentalService;
+
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.json.JSONObject;
 
 @RestController
 public class CarRentalController {
@@ -17,20 +22,46 @@ public class CarRentalController {
 	private CarRentalService carRentalService;
 	
 	public boolean validateString(String a, String b) {
-		return a.equals(b);
+		return a.toLowerCase().equals(b.toLowerCase());
 	}
 
-	  @RequestMapping(value = "/bookacar", method = RequestMethod.POST)
-	  public String bookACar(@RequestParam String firstname, @RequestParam String lastname,  @RequestParam String emailid, @RequestParam String license,
-			  @RequestParam Date startDate, @RequestParam Date endDate, @RequestParam String cartype) {
+	  @RequestMapping(value = "/bookacar", method = RequestMethod.POST, consumes = "application/json")
+	  public String bookACar(@RequestBody String bookingDetails) {
 	    try {
-	    	Userlicense userlicense = carRentalService.getUserLicenseDetails(license);
-	    	if(validateString(firstname, userlicense.getFirstname()) && validateString(lastname, userlicense.getLastname()) && validateString(emailid, userlicense.getEmailid()) && endDate.before(userlicense.getExpiryDate())) {
-	    		return "Booking confirmed! We will send you details shortly";
+	    	JSONObject bookingDetailsRequest = new JSONObject(bookingDetails);
+	    	Userlicense userlicense = carRentalService.getUserLicenseDetails(bookingDetailsRequest.getString("license"));
+	    	if(userlicense != null) {
+	    	String endDateStr = bookingDetailsRequest.getString("end_date");
+	    	String startDateStr = bookingDetailsRequest.getString("start_date");
+	    	SimpleDateFormat DateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	    	Date endDate = DateFormat.parse(endDateStr);
+	    	Date startDate = DateFormat.parse(startDateStr);
+	    	BookingDetails bookACar = new BookingDetails();
+	    	bookACar.setFirstname(bookingDetailsRequest.getString("firstName"));
+	    	bookACar.setLastname(bookingDetailsRequest.getString("lastName"));
+	    	bookACar.setLicense(bookingDetailsRequest.getString("license"));
+	    	bookACar.setstartDate(startDate);
+	    	bookACar.setendDate(endDate);
+	    	bookACar.setcarType(bookingDetailsRequest.getString("car_type"));	    	
+	    	
+	    	if(!userlicense.getisBlacklisted()) {
+	    		if(validateString(bookingDetailsRequest.getString("firstName"), userlicense.getFirstname()) && validateString(bookingDetailsRequest.getString("lastName"), userlicense.getLastname()) && endDate.before(userlicense.getExpiryDate())) {
+	    			if(carRentalService.bookACar(bookACar)) {
+	    				return "Booking confirmed! We will send you details shortly";
+	    			}
+	    			else {
+	    				return "Currently unable to book a car. Please try again later";
+	    			}
+	    		}else {
+	    		return "Invalid Details";
+	    		}
 	    	}else {
-	    		return "Enter valid details";
+	    		return "Sorry! You are not eligible to book a car as you are in blacklist!";
 	    	}
-	    } catch (Exception e) {
+	    }else {
+	    	return "Invalid license";
+	    }
+	    }catch (Exception e) {
 	      e.printStackTrace();
 	    }
 
