@@ -2,33 +2,54 @@ package com.cloudproject2.Model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(uniqueConstraints={@UniqueConstraint(columnNames={"license"})})
 public class Userlicense {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id", updatable = false, nullable = false)
+	private long id;
+	
+
 	private String license;
 	private String emailid;
 	private String firstname;
 	private String lastname;
 	private Date expiryDate;
+	private boolean isBlacklisted;
 	
 	public Userlicense() {
 		
 	}
 	
-	public Userlicense(String firstname, String lastname, String emailid, String license, Date expiryDate ) {
+	public Userlicense(long id, String firstname, String lastname, String emailid, String license, Date expiryDate,boolean isBlacklisted) {
 		super();
+		this.id = id;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.emailid = emailid;
 		this.license = license;
 		this.expiryDate = expiryDate;
+		this.isBlacklisted = isBlacklisted;
+	}
+	
+	public long getId(long id) {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getFirstname() {
@@ -71,11 +92,19 @@ public class Userlicense {
 	public void setExpiryDate(Date expiryDate) {
 		this.expiryDate = expiryDate;
 	}
+	
+	public boolean getisBlacklisted() {
+		return isBlacklisted;
+	}
+
+	public void setisBlacklisted(boolean isBlacklisted) {
+		this.isBlacklisted = isBlacklisted;
+	}
 
 	@Override
 	public String toString() {
 		return "Userlicense [license=" + license + ", emailid=" + emailid + ", firstname=" + firstname + ", lastname="
-				+ lastname + ", expiryDate=" + expiryDate + "]";
+				+ lastname + ", expiryDate=" + expiryDate + ", isBlacklisted=" + isBlacklisted +"]";
 	}
 
 	
