@@ -48,7 +48,7 @@ class RentCarPage extends Component {
     axios({
       method: "POST",
       url:
-        "http://localhost:8080/alekhyabook",
+        "http://localhost:8080/bookacar",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",

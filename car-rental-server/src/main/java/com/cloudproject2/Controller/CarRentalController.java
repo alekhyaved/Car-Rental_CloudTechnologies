@@ -25,22 +25,17 @@ public class CarRentalController {
 		return a.toLowerCase().equals(b.toLowerCase());
 	}
 
-	  @RequestMapping(value = "/alekhyabook", method = RequestMethod.POST, consumes = "application/json")
+	  @RequestMapping(value = "/bookacar", method = RequestMethod.POST, consumes = "application/json")
 	  public String bookACar(@RequestBody String bookingDetails) {
 	    try {
 	    	JSONObject bookingDetailsRequest = new JSONObject(bookingDetails);
 	    	Userlicense userlicense = carRentalService.getUserLicenseDetails(bookingDetailsRequest.getString("license"));
 	    	if(userlicense != null) {
-	    	System.out.println("userlicense" +userlicense);
 	    	String endDateStr = bookingDetailsRequest.getString("end_date");
 	    	String startDateStr = bookingDetailsRequest.getString("start_date");
 	    	SimpleDateFormat DateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	    	Date endDate = DateFormat.parse(endDateStr);
 	    	Date startDate = DateFormat.parse(startDateStr);
-	    	System.out.println("firstname" +validateString(bookingDetailsRequest.getString("firstName"), userlicense.getFirstname()));
-	    	System.out.println("lstname" +validateString(bookingDetailsRequest.getString("lastName"), userlicense.getLastname()));
-	    	System.out.println("expiry date" +endDate.after(userlicense.getExpiryDate()));
-	    	System.out.println("!userlicense.getIsBlackListed()" +!userlicense.getIsBlackListed());
 	    	BookingDetails bookACar = new BookingDetails();
 	    	bookACar.setFirstname(bookingDetailsRequest.getString("firstName"));
 	    	bookACar.setLastname(bookingDetailsRequest.getString("lastName"));
@@ -49,7 +44,7 @@ public class CarRentalController {
 	    	bookACar.setendDate(endDate);
 	    	bookACar.setcarType(bookingDetailsRequest.getString("car_type"));	    	
 	    	
-	    	if(!userlicense.getIsBlackListed()) {
+	    	if(!userlicense.getisBlacklisted()) {
 	    		if(validateString(bookingDetailsRequest.getString("firstName"), userlicense.getFirstname()) && validateString(bookingDetailsRequest.getString("lastName"), userlicense.getLastname()) && endDate.before(userlicense.getExpiryDate())) {
 	    			if(carRentalService.bookACar(bookACar)) {
 	    				return "Booking confirmed! We will send you details shortly";

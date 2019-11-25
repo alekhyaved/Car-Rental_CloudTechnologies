@@ -19,9 +19,8 @@ public class CarRentalService {
 	
 	public Userlicense getUserLicenseDetails(String license) {
 		try {
-			Userlicense a = userlicenseRepository.getUserLicenseDetails(license);
-			System.out.println("a" +a);
-			return a;
+			Userlicense userlicense = userlicenseRepository.getUserLicenseDetails(license);
+			return userlicense;
 		}
 		catch(Exception e) {
 			e.printStackTrace();
