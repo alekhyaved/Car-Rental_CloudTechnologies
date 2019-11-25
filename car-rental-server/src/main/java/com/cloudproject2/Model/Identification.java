@@ -1,6 +1,5 @@
 package com.cloudproject2.Model;
 
-import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,7 +24,4 @@ public class Identification {
   private String fileUrl;
   private String username;
   private boolean isBlacklisted;
-  private String firstName;
-  private String lastName;
-  private Date expiryDate;
 }
