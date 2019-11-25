@@ -34,6 +34,11 @@ public class IdentificationServiceImpl implements IdentificationService {
   private final IdentificationRepository identificationRepository;
 
   @Override
+  public Identification updateIdentification(Identification identification) {
+    return identificationRepository.save(identification);
+  }
+
+  @Override
   public Identification createIdentification(String username, MultipartFile multipartFile) {
     String fileName = String.format("%s-%s", Utils.getUUID(5), multipartFile.getOriginalFilename());
 

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.cloudproject2.Model.Userlicense;
 
 @Repository
-public interface UserlicenseRepository extends JpaRepository<Userlicense, String> {
-	@Query("SELECT u FROM Userlicense u WHERE LOWER(u.license) = LOWER(:license)")
-    public Userlicense getUserLicenseDetails(@Param("license") String license);
+public interface UserlicenseRepository extends JpaRepository<Userlicense, Integer> {
+	@Query("SELECT u FROM Userlicense u WHERE LOWER(u.id) = LOWER(:id)")
+    public Userlicense getUserLicenseDetails(@Param("id") String license);
 }
