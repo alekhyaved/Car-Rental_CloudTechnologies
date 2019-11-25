@@ -20,7 +20,7 @@ public class ChatbotController {
 	@Autowired
 	private ChatbotService chatbotService;
 	
-	@RequestMapping(value = "/{message}", method = RequestMethod.POST)
+	@RequestMapping(value = "/chatbot/{message}", method = RequestMethod.POST)
 	public String Chatbot(@PathVariable String message) {
 		try {
 			return chatbotService.Chatbot(message);

@@ -21,7 +21,7 @@ export default class ListPage extends Component {
     console.log(`New message incoming! ${newMessage}`);
     // Now send the message throught the backend API
     axios
-      .post(config.BackendUrl + newMessage)
+      .post(config.BackendUrl + "/chatbot/" + newMessage)
       .then(res => {
         this.state.message = res.data;
         if (this.state.message === "") {
