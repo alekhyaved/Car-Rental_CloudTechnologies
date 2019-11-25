@@ -42,7 +42,7 @@ export default class RegisterLicense extends Component {
       this.setState(() => ({
         showMaxSizeError: true,
       }));
-    } else {
+    } else { 
 
       var currentUser = localStorage.getItem(CURRENT_USER)
       var formData = new FormData()
@@ -57,12 +57,14 @@ export default class RegisterLicense extends Component {
 
       axios.post(SERVER_URI + '/identifications', formData, config)
         .then(response1 => {
+          console.log(response1)
           var id = response1.data.id
           axios.post(SERVER_URI + '/verification/check/' + id)
             .then(response2 => {
               if (response2.data.result == 'PASS') {
                 var newFormData = new FormData()
                 newFormData.append('photo', response1.data.s3Key)
+                newFormData.append('isBlacklisted',response1.data.blacklisted)
                 axios.post(SERVER_URI + '/rekognize', newFormData)
                   .then(response3 => {
                     console.log("success")
