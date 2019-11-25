@@ -17,6 +17,8 @@ public class Userlicense {
 	private String firstname;
 	private String lastname;
 	private Date expiryDate;
+	private boolean is_blacklisted;
+	
 	
 	public Userlicense() {
 		
@@ -71,11 +73,19 @@ public class Userlicense {
 	public void setExpiryDate(Date expiryDate) {
 		this.expiryDate = expiryDate;
 	}
+	
+	public boolean getIsBlackListed() {
+		return is_blacklisted;
+	}
+
+	public void setIsBlackListed(boolean is_blacklisted) {
+		this.is_blacklisted = is_blacklisted;
+	}
 
 	@Override
 	public String toString() {
 		return "Userlicense [license=" + license + ", emailid=" + emailid + ", firstname=" + firstname + ", lastname="
-				+ lastname + ", expiryDate=" + expiryDate + "]";
+				+ lastname + ", expiryDate=" + expiryDate + ", isBlacklisted=" + is_blacklisted + "]";
 	}
 
 	
