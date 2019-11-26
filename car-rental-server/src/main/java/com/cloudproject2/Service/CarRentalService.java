@@ -17,9 +17,9 @@ public class CarRentalService {
 	@Autowired
 	private BookingDetailsRepository bookingDetailsRepository;
 	
-	public Userlicense getUserLicenseDetails(String license) {
+	public Userlicense getRentLicenseDetails(String license) {
 		try {
-			Userlicense userlicense = userlicenseRepository.getUserLicenseDetails(license);
+			Userlicense userlicense = userlicenseRepository.getRentLicenseDetails(license);
 			return userlicense;
 		}
 		catch(Exception e) {

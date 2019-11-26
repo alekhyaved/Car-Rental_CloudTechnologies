@@ -11,4 +11,7 @@ import com.cloudproject2.Model.Userlicense;
 public interface UserlicenseRepository extends JpaRepository<Userlicense, Integer> {
 	@Query("SELECT u FROM Userlicense u WHERE LOWER(u.id) = LOWER(:id)")
     public Userlicense getUserLicenseDetails(@Param("id") String license);
+	
+	@Query("SELECT u FROM Userlicense u WHERE LOWER(u.license) = LOWER(:license)")
+    public Userlicense getRentLicenseDetails(@Param("license") String license);
 }
