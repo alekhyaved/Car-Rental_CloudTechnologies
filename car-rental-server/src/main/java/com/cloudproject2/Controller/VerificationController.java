@@ -42,16 +42,26 @@ public class VerificationController {
   }
 
   /**
-   * Admin access: Add an image from S3 to blacklisted collection
+   * Admin Access: Retrieve an image from S3, extract the largest indexed face and add to
+   * blacklisted collection. Return failure if the image doesn't have a face.
    *
    * @param identificationId Identification Id of the uploaded license
-   * @return
+   * @return status whether the face has been successfully added to the blacklisted collection
    */
   @PostMapping("/blacklist/{identificationId}")
   public ResponseEntity<?> blacklistId(@PathVariable long identificationId) {
-    // Retrieve image from S3, extract index face and add to blacklisted collection
-    verificationService.blacklist(identificationId);
-
-    return ResponseEntity.ok("");
+    return verificationService.blacklist(identificationId)
+        ? new ResponseEntity<>(
+            VerificationResponse.builder()
+                .result(Result.PASS)
+                .details("Face from the image has been added to blacklisted collection")
+                .build(),
+            HttpStatus.OK)
+        : new ResponseEntity<>(
+            VerificationResponse.builder()
+                .result(Result.FAILED)
+                .details("Error extracting face from the image")
+                .build(),
+            HttpStatus.BAD_REQUEST);
   }
 }

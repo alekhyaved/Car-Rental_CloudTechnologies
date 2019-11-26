@@ -9,6 +9,7 @@ import com.amazonaws.services.rekognition.model.QualityFilter;
 import com.amazonaws.services.rekognition.model.S3Object;
 import com.amazonaws.services.rekognition.model.SearchFacesByImageRequest;
 import com.amazonaws.services.rekognition.model.SearchFacesByImageResult;
+import com.amazonaws.util.CollectionUtils;
 import com.cloudproject2.Model.Identification;
 import com.cloudproject2.Service.IdentificationService;
 import com.cloudproject2.Service.VerificationService;
@@ -79,6 +80,10 @@ public class VerificationServiceImpl implements VerificationService {
 
     log.info("Results for " + s3Key);
     log.info("Faces indexed: " + indexFacesResult);
+
+    if (CollectionUtils.isNullOrEmpty(indexFacesResult.getFaceRecords())) {
+      return false;
+    }
 
     id.setFaceId(indexFacesResult.getFaceRecords().get(0).getFace().getFaceId());
     id.setBlacklisted(true);
