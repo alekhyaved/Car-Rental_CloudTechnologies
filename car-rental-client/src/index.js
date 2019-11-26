@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
+import "bootstrap/dist/css/bootstrap.css";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter, Route } from "react-router-dom";
 import amplify from "aws-amplify";
@@ -9,6 +10,8 @@ import Loginpage from "./components/LoginPage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import RegisterLicence from "./components/RegisterLicense";
 import RentCarPage from "./components/RentCarPage";
+import Admin from './components/Admin';
+
 
 amplify.configure({
   Auth: {
@@ -21,6 +24,7 @@ amplify.configure({
 ReactDOM.render(
   <BrowserRouter>
     <Route exact path="/" component={Loginpage} />
+    <Route exact path="/admin" component={Admin} />
     <Route exact path="/license" component={RegisterLicence} />
     <Route exact path="/rentpage" component={RentCarPage} />
   </BrowserRouter>,

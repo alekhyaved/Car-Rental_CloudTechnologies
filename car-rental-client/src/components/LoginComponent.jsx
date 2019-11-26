@@ -14,8 +14,8 @@ class LoginComponent extends React.Component {
   }
 
   render() {
-    if (Auth.user.username === "admin1") {
-      return <div>{/* adminpage component */}</div>;
+    if (Auth.user.username === "masteradmin") {
+      return <Redirect to="/admin" />;
     } else {
       return <Redirect to="/license" />;
     }
