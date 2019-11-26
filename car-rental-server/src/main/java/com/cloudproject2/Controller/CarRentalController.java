@@ -10,12 +10,14 @@ import com.cloudproject2.Model.Userlicense;
 import com.cloudproject2.Model.BookingDetails;
 import com.cloudproject2.Service.CarRentalService;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.json.JSONObject;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class CarRentalController {
 	
 	@Autowired	
@@ -29,7 +31,8 @@ public class CarRentalController {
 	  public String bookACar(@RequestBody String bookingDetails) {
 	    try {
 	    	JSONObject bookingDetailsRequest = new JSONObject(bookingDetails);
-	    	Userlicense userlicense = carRentalService.getUserLicenseDetails(bookingDetailsRequest.getString("license"));
+	    	Userlicense userlicense = carRentalService.getRentLicenseDetails(bookingDetailsRequest.getString("license"));
+	    	System.out.println("userlicense"+userlicense);
 	    	if(userlicense != null) {
 	    	String endDateStr = bookingDetailsRequest.getString("end_date");
 	    	String startDateStr = bookingDetailsRequest.getString("start_date");
@@ -43,7 +46,6 @@ public class CarRentalController {
 	    	bookACar.setstartDate(startDate);
 	    	bookACar.setendDate(endDate);
 	    	bookACar.setcarType(bookingDetailsRequest.getString("car_type"));	    	
-	    	
 	    	if(!userlicense.getisBlacklisted()) {
 	    		if(validateString(bookingDetailsRequest.getString("firstName"), userlicense.getFirstname()) && validateString(bookingDetailsRequest.getString("lastName"), userlicense.getLastname()) && endDate.before(userlicense.getExpiryDate())) {
 	    			if(carRentalService.bookACar(bookACar)) {

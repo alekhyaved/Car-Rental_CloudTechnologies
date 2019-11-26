@@ -7,6 +7,7 @@ import { Form, DatePicker, Select, Input, Button, Row, Col } from 'antd';
 import 'antd/dist/antd.css'; 
 import axios from 'axios';
 import './RentCar.css';
+import config from "../../src/config";
 
 const { RangePicker } = DatePicker;
 const { Option } = Select;
@@ -44,31 +45,23 @@ class RentCarPage extends Component {
   };
 
   bookACar(values) {
-    console.log("values", values)
-    axios({
-      method: "POST",
-      url:
-        "http://localhost:8080/bookacar",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        "firstName": values.firstname,
-        "license": values.license,
-        "lastName": values.lastname,
-        "start_date": values.startDate,
-        "end_date": values.endDate,
-        "car_type": values.car_type
-      })
-    })
+    console.log("values", values);
+    const postPayload = {
+      "firstName": values.firstname,
+      "license": values.license,
+      "lastName": values.lastname,
+      "start_date": values.startDate,
+      "end_date": values.endDate,
+      "car_type": values.car_type
+    };
+    axios.post(config.BackendUrl + '/bookacar', postPayload)
     .then(function(response) {
       console.log("response", response)
       return response; 
     })
     .then(data => {
       console.log(data);
-      alert(data);
+      alert(data.data);
     })
     .catch(function(error) {
       console.log("Error " + JSON.stringify(error));
