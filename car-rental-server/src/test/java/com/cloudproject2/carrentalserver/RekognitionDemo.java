@@ -5,6 +5,8 @@ import com.amazonaws.services.rekognition.AmazonRekognitionClientBuilder;
 import com.amazonaws.services.rekognition.model.AmazonRekognitionException;
 import com.amazonaws.services.rekognition.model.CreateCollectionRequest;
 import com.amazonaws.services.rekognition.model.CreateCollectionResult;
+import com.amazonaws.services.rekognition.model.DeleteFacesRequest;
+import com.amazonaws.services.rekognition.model.DeleteFacesResult;
 import com.amazonaws.services.rekognition.model.DetectLabelsRequest;
 import com.amazonaws.services.rekognition.model.DetectLabelsResult;
 import com.amazonaws.services.rekognition.model.Face;
@@ -30,6 +32,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.junit.Test;
 
 /** @author choang on 11/4/19 */
@@ -188,7 +191,7 @@ public class RekognitionDemo {
       ListFacesRequest listFacesRequest =
           new ListFacesRequest()
               .withCollectionId(collectionId)
-              .withMaxResults(1)
+              .withMaxResults(20)
               .withNextToken(paginationToken);
 
       listFacesResult = rekognitionClient.listFaces(listFacesRequest);
@@ -225,6 +228,31 @@ public class RekognitionDemo {
     for (FaceMatch face : faceImageMatches) {
       System.out.println(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(face));
       System.out.println();
+    }
+  }
+
+  @Test
+  public void deleteAllFacesFromCollection() {
+    AmazonRekognition rekognitionClient = AmazonRekognitionClientBuilder.defaultClient();
+
+    ListFacesRequest listFacesRequest =
+        new ListFacesRequest().withCollectionId(collectionId).withMaxResults(20).withNextToken("");
+
+    ListFacesResult listFacesResult = null;
+    listFacesResult = rekognitionClient.listFaces(listFacesRequest);
+    List<Face> faces = listFacesResult.getFaces();
+
+    DeleteFacesRequest deleteFacesRequest =
+        new DeleteFacesRequest()
+            .withCollectionId(collectionId)
+            .withFaceIds(faces.stream().map(Face::getFaceId).collect(Collectors.toList()));
+
+    DeleteFacesResult deleteFacesResult = rekognitionClient.deleteFaces(deleteFacesRequest);
+
+    List<String> faceRecords = deleteFacesResult.getDeletedFaces();
+    System.out.println(Integer.toString(faceRecords.size()) + " face(s) deleted:");
+    for (String face : faceRecords) {
+      System.out.println("FaceID: " + face);
     }
   }
 }
