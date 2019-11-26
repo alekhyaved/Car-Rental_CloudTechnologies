@@ -3,7 +3,6 @@ package com.cloudproject2.config;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.regions.Regions;
 import com.amazonaws.services.rekognition.AmazonRekognition;
 import com.amazonaws.services.rekognition.AmazonRekognitionClientBuilder;
 import com.amazonaws.services.s3.AmazonS3;
@@ -34,21 +33,15 @@ public class AwsClient {
         .build();
   }
 
-//  @Bean
-//  public AmazonRekognition amazonRekognition() {
-//    return AmazonRekognitionClientBuilder.defaultClient();
-//  }
-  
   @Bean
   public AmazonRekognition amazonRekognitionClient() {
   AWSCredentials credential = new BasicAWSCredentials(accessKey,
   		secretKey);
  
-  AmazonRekognition rekognitionClient = AmazonRekognitionClientBuilder
+  return AmazonRekognitionClientBuilder
 		  .standard()
-          .withRegion(Regions.US_WEST_1)
+          .withRegion(region)
           .withCredentials(new AWSStaticCredentialsProvider(credential))
           .build();
-  return rekognitionClient;
   }
 }
