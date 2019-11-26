@@ -10,12 +10,14 @@ import com.cloudproject2.Model.Userlicense;
 import com.cloudproject2.Model.BookingDetails;
 import com.cloudproject2.Service.CarRentalService;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.json.JSONObject;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class CarRentalController {
 	
 	@Autowired	
