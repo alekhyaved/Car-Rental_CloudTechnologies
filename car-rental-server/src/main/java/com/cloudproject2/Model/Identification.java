@@ -23,5 +23,6 @@ public class Identification {
   private String s3Key;
   private String fileUrl;
   private String username;
+  private String faceId;
   private boolean isBlacklisted;
 }
