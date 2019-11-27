@@ -4,10 +4,15 @@ import Row from "react-bootstrap/Row";
 import Nav from "./Navbar";
 import Chatbot from "./Chatbot";
 import axios from 'axios';
+import config from "../../src/config";
+import { Redirect } from "react-router-dom";
 
-const SERVER_URI = 'http://localhost:8080'
 
 const CURRENT_USER = 'currentUser'
+const CURRENT_USER_LICENSE = 'currentUserLicense'
+const CURRENT_USER_FIRSTNAME = 'currentUserFirstName'
+const CURRENT_USER_LASTNAME = 'currentUserLastName'
+
 
 export default class RegisterLicense extends Component {
 
@@ -49,25 +54,34 @@ export default class RegisterLicense extends Component {
       formData.append('username', currentUser)
       formData.append('file', file)
 
-      const config = {
+      const configure = {
         headers: {
           'content-type': 'multipart/form-data'
         }
       }
 
-      axios.post(SERVER_URI + '/identifications', formData, config)
+      axios.post(config.BackendUrl + '/identifications', formData, configure)
         .then(response1 => {
           console.log(response1)
           var id = response1.data.id
-          axios.post(SERVER_URI + '/verification/check/' + id)
+          axios.post(config.BackendUrl + '/verification/check/' + id)
             .then(response2 => {
               if (response2.data.result == 'PASS') {
                 var newFormData = new FormData()
                 newFormData.append('photo', response1.data.s3Key)
                 newFormData.append('isBlacklisted',response1.data.blacklisted)
-                axios.post(SERVER_URI + '/rekognize', newFormData)
+                axios.post(config.BackendUrl + '/rekognize', newFormData)
                   .then(response3 => {
-                    console.log("success")
+                    console.log("success" + JSON.stringify(response3.data))
+                    var {license, firstname, lastname} = response3.data
+                    console.log("license : " + license)
+                    console.log("firstname : " + firstname)
+                    console.log("lastname : " + lastname)
+                    localStorage.setItem(CURRENT_USER_LICENSE, license)
+                    localStorage.setItem(CURRENT_USER_FIRSTNAME, firstname)
+                    localStorage.setItem(CURRENT_USER_LASTNAME, lastname)
+
+
                     this.setState(() => ({
                       fileSubmitted: true,
                     }));
@@ -117,24 +131,10 @@ export default class RegisterLicense extends Component {
     var { isLoading } = this.state;
     console.log("register license render :" + this.state.fileSubmitted)
     if (this.state.fileSubmitted) {
-      return (
-
-        <div>
-          <Nav />
-          <React.Fragment>
-            <h2>
-              {this.state.firstName}
-            </h2>
-            <div className="Card">
-              <p>Your Driver License is verified. Please go ahead and rent a car</p>
-            </div>
-          </React.Fragment>
-          <Chatbot />
-        </div>
-
-
-      )
-    }
+      console.log("file submitted redirec to rent a car page :")
+      
+      return <Redirect to="/rentpage" />;
+         }
     else {
       return (
 
