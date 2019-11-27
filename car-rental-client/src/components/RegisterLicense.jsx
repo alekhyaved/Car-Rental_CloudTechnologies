@@ -103,9 +103,12 @@ export default class RegisterLicense extends Component {
               alert('Not allowed to book a car')
               console.log(error)
             })
-        })
+      })
         .catch(error => {
           console.log(error)
+          if(error.response.status === 500) {
+            alert('Please upload a valid DL Image')
+          }
           this.stopReloading()
         })
     }
