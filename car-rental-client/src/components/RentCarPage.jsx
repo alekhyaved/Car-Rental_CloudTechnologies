@@ -9,6 +9,9 @@ import axios from 'axios';
 import './RentCar.css';
 import config from "../../src/config";
 
+const CURRENT_USER_LICENSE = 'currentUserLicense'
+const CURRENT_USER_FIRSTNAME = 'currentUserFirstName'
+const CURRENT_USER_LASTNAME = 'currentUserLastName'
 const { RangePicker } = DatePicker;
 const { Option } = Select;
 class RentCarPage extends Component {
@@ -25,7 +28,7 @@ class RentCarPage extends Component {
   }
 
 
-  handleSubmit = e => {
+  handleSubmit = e => { 
     e.preventDefault();
 
     this.props.form.validateFields((err, fieldsValue) => {
@@ -68,11 +71,27 @@ class RentCarPage extends Component {
     });
   }
 
+  componentDidMount() {
+    console.log("componentDidMount")
+    var currentUserFirstName = localStorage.getItem(CURRENT_USER_FIRSTNAME)
+    var currentUserLastName = localStorage.getItem(CURRENT_USER_LASTNAME)
+    var currentUserLicense = localStorage.getItem(CURRENT_USER_LICENSE)
+
+    const { getFieldValue } = this.props.form;
+
+    this.props.form.setFieldsValue({
+      firstname: currentUserFirstName,
+      lastname: currentUserLastName,
+      license: currentUserLicense,
+  });
+  }
+
   render() {
     const { getFieldDecorator } = this.props.form;
     const rangeConfig = {
       rules: [{ type: 'array', required: true, message: 'Please select time!' }],
     };
+
     return (
       <div>
         <Nav />
@@ -86,7 +105,7 @@ class RentCarPage extends Component {
                     message: 'Please input your first name!',
                   },
                 ],
-                })(<Input />)}
+                })(<Input/>)}
               </Form.Item>
   
               <Form.Item label="Last Name">
