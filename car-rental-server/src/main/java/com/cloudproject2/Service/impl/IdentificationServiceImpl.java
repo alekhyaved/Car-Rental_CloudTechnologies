@@ -5,6 +5,7 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.cloudproject2.Model.Identification;
 import com.cloudproject2.Repository.IdentificationRepository;
+import com.cloudproject2.Service.CheckIfDriverLicenseService;
 import com.cloudproject2.Service.IdentificationService;
 import com.cloudproject2.exception.SystemException;
 import com.cloudproject2.util.Utils;
@@ -32,6 +33,7 @@ public class IdentificationServiceImpl implements IdentificationService {
 
   private final AmazonS3 amazonS3;
   private final IdentificationRepository identificationRepository;
+  private final CheckIfDriverLicenseService driverLicenseService;
 
   @Override
   public Identification updateIdentification(Identification identification) {
@@ -51,6 +53,15 @@ public class IdentificationServiceImpl implements IdentificationService {
             .withCannedAcl(CannedAccessControlList.PublicRead));
 
     file.delete();
+    
+    // Check if the object is a Valid DL
+    boolean result = driverLicenseService.isImageDL(s3Key);
+    
+    if (!result) {
+    	amazonS3.deleteObject(bucketName, s3Key);
+        log.error("Could not recognize as DL image");
+        throw new SystemException("Could not recognize as DL Image: ", HttpStatus.NOT_ACCEPTABLE);
+    }
 
     String fileUrl = String.format("%s/%s", s3Url, s3Key);
 
