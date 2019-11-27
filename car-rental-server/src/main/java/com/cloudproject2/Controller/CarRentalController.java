@@ -55,13 +55,13 @@ public class CarRentalController {
 	    				return "Currently unable to book a car. Please try again later";
 	    			}
 	    		}else {
-	    		return "Invalid Details";
+	    		return "Please Verify the Name fields and Car rent dates is valid as per your registered license and retry !";
 	    		}
 	    	}else {
 	    		return "Sorry! You are not eligible to book a car as you are in blacklist!";
 	    	}
 	    }else {
-	    	return "Invalid license";
+	    	return "Invalid license.Please register your license !";
 	    }
 	    }catch (Exception e) {
 	      e.printStackTrace();

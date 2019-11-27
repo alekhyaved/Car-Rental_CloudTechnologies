@@ -95,6 +95,10 @@ class RentCarPage extends Component {
     return (
       <div>
         <Nav />
+        <Row className="title-justify-center">  
+          <h2>Please complete the below form to rent a car</h2>
+          </Row>
+         
           <Row type="flex" justify="center" align="middle">
             <Form className="booking-form" onSubmit={this.handleSubmit}>
               <Form.Item label="First Name">
