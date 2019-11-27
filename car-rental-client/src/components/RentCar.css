@@ -1,6 +1,6 @@
 .booking-form {
   width: 40%;
-  padding: 5%;
+  padding: 2% 5%;
 }
 
 .rent-car-select {
@@ -10,6 +10,11 @@
 .rent-car-submit {
   text-align:center;
   margin-top: 15%;
+}
+
+.title-justify-center {
+  text-align:center;
+  margin-top: 3%;
 }
 
 .rent-car-submit button{
