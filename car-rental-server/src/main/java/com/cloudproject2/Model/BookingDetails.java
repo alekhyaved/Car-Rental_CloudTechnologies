@@ -3,16 +3,19 @@ package com.cloudproject2.Model;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 
 @Entity
-@Table(uniqueConstraints={@UniqueConstraint(columnNames={"license"})})
+@Table
 public class BookingDetails {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 	private String firstname;
 	private String lastname;
 	private String license;

@@ -45,7 +45,22 @@ public class CarRentalController {
 	    	bookACar.setLicense(bookingDetailsRequest.getString("license"));
 	    	bookACar.setstartDate(startDate);
 	    	bookACar.setendDate(endDate);
-	    	bookACar.setcarType(bookingDetailsRequest.getString("car_type"));	    	
+	    	bookACar.setcarType(bookingDetailsRequest.getString("car_type"));
+	    	
+	    	//validations for date ranges
+	    	long id=carRentalService.getBookingId(bookingDetailsRequest.getString("license"), endDate, startDate);
+	    	if(id !=0) {
+	    		
+	    		return "Booking exits with same date range. please select different date range";
+	    		
+	    	}
+	    	java.util.Date date=new java.util.Date(); 
+	    	if(startDate.before(date)) {
+	    		return "Please select a valid date range";
+	    		
+	    	}
+
+	    	
 	    	if(!userlicense.getisBlacklisted()) {
 	    		if(validateString(bookingDetailsRequest.getString("firstName"), userlicense.getFirstname()) && validateString(bookingDetailsRequest.getString("lastName"), userlicense.getLastname()) && endDate.before(userlicense.getExpiryDate())) {
 	    			if(carRentalService.bookACar(bookACar)) {

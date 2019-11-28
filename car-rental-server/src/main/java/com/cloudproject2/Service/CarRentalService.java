@@ -1,5 +1,8 @@
 package com.cloudproject2.Service;
 
+
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +40,17 @@ public class CarRentalService {
 
 		}
 		return false;
+			
+	}
+	
+	public long getBookingId(String license , Date endDate, Date startDate) {
+		try {
+			
+			return bookingDetailsRepository.getBookingId(license, startDate, endDate);
+		} catch (Exception e) {
+
+		}
+		return 0;
 			
 	}
 }
