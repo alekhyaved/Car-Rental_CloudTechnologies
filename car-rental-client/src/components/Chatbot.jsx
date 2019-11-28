@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Widget, addResponseMessage } from "react-chat-widget";
+import { Widget, addResponseMessage, dropMessages} from "react-chat-widget";
 import "react-chat-widget/lib/styles.css";
 import config from "../../src/config";
 
@@ -15,6 +15,7 @@ export default class ListPage extends Component {
   }
 
   componentDidMount() {
+    dropMessages();
     addResponseMessage("Hi! How can I help you today?");
   }
   handleNewUserMessage = newMessage => {
