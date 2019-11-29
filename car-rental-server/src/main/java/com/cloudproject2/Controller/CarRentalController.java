@@ -46,7 +46,7 @@ public class CarRentalController {
 	    	bookACar.setstartDate(startDate);
 	    	bookACar.setendDate(endDate);
 	    	bookACar.setcarType(bookingDetailsRequest.getString("car_type"));
-	    	
+	    	bookACar.setUserName(bookingDetailsRequest.getString("userName"));
 	    	//validations for date ranges
 	    	long id=carRentalService.getBookingId(bookingDetailsRequest.getString("license"), endDate, startDate);
 	    	if(id !=0) {
@@ -64,7 +64,7 @@ public class CarRentalController {
 	    	if(!userlicense.getisBlacklisted()) {
 	    		if(validateString(bookingDetailsRequest.getString("firstName"), userlicense.getFirstname()) && validateString(bookingDetailsRequest.getString("lastName"), userlicense.getLastname()) && endDate.before(userlicense.getExpiryDate())) {
 	    			if(carRentalService.bookACar(bookACar)) {
-	    				return "Booking confirmed! We will send you details shortly";
+	    				return "Your Booking has been made suceesfully!";
 	    			}
 	    			else {
 	    				return "Currently unable to book a car. Please try again later";

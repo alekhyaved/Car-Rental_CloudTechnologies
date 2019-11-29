@@ -48,6 +48,11 @@ export default class Navbar extends Component {
                     <h3>Rent A Car</h3>
                   </Nav.Link>
                 </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link href="/bookingdetails">
+                    <h3>BookingDetails</h3>
+                  </Nav.Link>
+                </Nav.Item>
               </Nav>
             </Col>
             <Col md="auto">

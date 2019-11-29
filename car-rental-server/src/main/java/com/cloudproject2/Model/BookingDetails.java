@@ -22,7 +22,24 @@ public class BookingDetails {
 	private String carType;
 	private Date startDate;
 	private Date endDate;
+	private String userName;
 	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+	
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
 	public BookingDetails() {
 		
 	}

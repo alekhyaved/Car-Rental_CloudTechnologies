@@ -10,8 +10,8 @@ import Loginpage from "./components/LoginPage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import RegisterLicence from "./components/RegisterLicense";
 import RentCarPage from "./components/RentCarPage";
-import Admin from './components/Admin';
-
+import Admin from "./components/Admin";
+import BookingDetails from "./components/BookingDetails";
 
 amplify.configure({
   Auth: {
@@ -27,6 +27,7 @@ ReactDOM.render(
     <Route exact path="/admin" component={Admin} />
     <Route exact path="/license" component={RegisterLicence} />
     <Route exact path="/rentpage" component={RentCarPage} />
+    <Route exact path="/bookingdetails" component={BookingDetails} />
   </BrowserRouter>,
   document.getElementById("root")
 );
