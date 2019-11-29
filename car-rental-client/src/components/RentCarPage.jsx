@@ -55,7 +55,8 @@ class RentCarPage extends Component {
       "lastName": values.lastname,
       "start_date": values.startDate,
       "end_date": values.endDate,
-      "car_type": values.car_type
+      "car_type": values.car_type,
+      "userName": localStorage.getItem("userName")
     };
     axios.post(config.BackendUrl + '/bookacar', postPayload)
     .then(function(response) {
