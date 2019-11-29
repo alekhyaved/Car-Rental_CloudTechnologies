@@ -9,10 +9,6 @@ import { Redirect } from "react-router-dom";
 
 
 const CURRENT_USER = 'currentUser'
-const CURRENT_USER_LICENSE = 'currentUserLicense'
-const CURRENT_USER_FIRSTNAME = 'currentUserFirstName'
-const CURRENT_USER_LASTNAME = 'currentUserLastName'
-
 
 export default class RegisterLicense extends Component {
 
@@ -134,10 +130,23 @@ export default class RegisterLicense extends Component {
     var { isLoading } = this.state;
     console.log("register license render :" + this.state.fileSubmitted)
     if (this.state.fileSubmitted) {
-      console.log("file submitted redirec to rent a car page :")
-      
-      return <Redirect to="/rentpage" />;
+     return (
+        <div>
+         <Nav />
+          <React.Fragment>
+             <h2>	
+              {this.state.firstName}	
+            </h2>	
+            <div className="Card">	
+              <p>Your Driver License is verified. Please go ahead and rent a car</p>	
+            </div>	
+          </React.Fragment>	
+          <Chatbot />	
+        </div>
+       )
          }
+    
+    
     else {
       return (
 
