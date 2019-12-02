@@ -73,9 +73,9 @@ export default class RegisterLicense extends Component {
                     console.log("license : " + license)
                     console.log("firstname : " + firstname)
                     console.log("lastname : " + lastname)
-                    localStorage.setItem(CURRENT_USER_LICENSE, license)
-                    localStorage.setItem(CURRENT_USER_FIRSTNAME, firstname)
-                    localStorage.setItem(CURRENT_USER_LASTNAME, lastname)
+                    //localStorage.setItem(CURRENT_USER_LICENSE, license)
+                    //localStorage.setItem(CURRENT_USER_FIRSTNAME, firstname)
+                    //localStorage.setItem(CURRENT_USER_LASTNAME, lastname)
 
 
                     this.setState(() => ({
