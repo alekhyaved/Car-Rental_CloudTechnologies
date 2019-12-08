@@ -4,5 +4,6 @@
     "USER_POOL_ID": "",
     "APP_CLIENT_ID": ""
   },
-  "BackendUrl": "http://127.0.0.1:8080/"
+  "BackendUrl": "http://127.0.0.1:8080/",
+  "apiGateWayUrl" : "https://mnbpyxxh13.execute-api.us-east-1.amazonaws.com/dev/"
 }
