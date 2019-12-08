@@ -100,6 +100,13 @@ public class Userlicense {
 	public void setisBlacklisted(boolean isBlacklisted) {
 		this.isBlacklisted = isBlacklisted;
 	}
+	
+	public boolean isUserLicenseComplete() {
+		return firstname != null && !firstname.isEmpty() 
+			   && lastname != null && !lastname.isEmpty()
+			   && license != null && !license.isEmpty()
+		       && expiryDate != null;
+	}
 
 	@Override
 	public String toString() {
