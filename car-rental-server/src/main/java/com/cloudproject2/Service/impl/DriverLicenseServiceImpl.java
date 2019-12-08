@@ -1,7 +1,11 @@
 package com.cloudproject2.Service.impl;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -12,16 +16,22 @@ import com.amazonaws.services.rekognition.model.DetectLabelsResult;
 import com.amazonaws.services.rekognition.model.Image;
 import com.amazonaws.services.rekognition.model.Label;
 import com.amazonaws.services.rekognition.model.S3Object;
-import com.cloudproject2.Service.CheckIfDriverLicenseService;
+import com.cloudproject2.Model.Userlicense;
+import com.cloudproject2.Repository.UserlicenseRepository;
+import com.cloudproject2.Service.DriverLicenseService;
 
 import lombok.RequiredArgsConstructor;
 
+/** @author anvithak on 11/27/19 */
+
 @Service
 @RequiredArgsConstructor
-public class CheckIfDriverLicenseServiceImpl implements CheckIfDriverLicenseService {
+public class DriverLicenseServiceImpl implements DriverLicenseService {
 
 	@Value("${bucketName}")
 	private String bucketName;
+	@Autowired
+	private UserlicenseRepository userlicenseRepository;
 
 	private static final String LABEL_DL = "Driving License";
 	private static final String LABEL_ID = "Id Cards";
@@ -62,5 +72,16 @@ public class CheckIfDriverLicenseServiceImpl implements CheckIfDriverLicenseServ
 			e.printStackTrace();
 		}
 		return isDL && isID;
+	}
+
+	@Override
+	public Userlicense storeDriverDetails(String firstName, String lastName, String license, long expiry) {
+		Userlicense userlicense = new Userlicense();
+		userlicense.setisBlacklisted(false);
+		userlicense.setFirstname(firstName);
+		userlicense.setLastname(lastName);
+		userlicense.setLicense(license);
+		userlicense.setExpiryDate(new Date(expiry));
+		return userlicenseRepository.save(userlicense);
 	}
 }
