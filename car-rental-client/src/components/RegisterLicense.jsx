@@ -77,7 +77,7 @@ export default class RegisterLicense extends Component {
                     newFormData.append("lastName",lastname)
                     newFormData.append("license",license)
                     newFormData.append("expiry",expiryDate)
-                    axios.post(config.BackendUrl + 'license', newFormData)
+                    axios.post(config.BackendUrl + '/license', newFormData)
                     .then(response4 => {
                       console.log("final response : "+ JSON.stringify(response4))
                       this.setState(() => ({
@@ -112,7 +112,7 @@ export default class RegisterLicense extends Component {
         .catch(error => {
           console.log(error)
           if(error.response.status === 500) {
-            alert('Please upload a valid DL Image')
+            alert('Please upload a valid Driver License Image')
           }
           this.stopReloading()
         })
