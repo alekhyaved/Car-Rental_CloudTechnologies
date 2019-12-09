@@ -76,7 +76,7 @@ export default class RegisterLicense extends Component {
                     newFormData.append("lastName",lastname)
                     newFormData.append("license",license)
                     newFormData.append("expiry",expiryDate)
-                    axios.post(config.BackendUrl + '/license', newFormData)
+                    axios.post(config.BackendUrl + 'license', newFormData)
                     .then(response4 => {
                       console.log("final response : "+ JSON.stringify(response4))
                       this.setState(() => ({
