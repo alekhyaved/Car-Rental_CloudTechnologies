@@ -60,19 +60,17 @@ public class DriverLicenseServiceImpl implements DriverLicenseService {
 			for (Label label : labels) {
 
 				if (label.getName().equalsIgnoreCase(LABEL_DL)) {
-					isDL = true;
-				}
-
-				if (label.getName().equalsIgnoreCase(LABEL_ID)) {
-					isID = true;
+					System.out.println("label is : " + label);
+					isDL = true;					
 				}
 			}
 
 		} catch (AmazonRekognitionException e) {
 			e.printStackTrace();
 		}
-		return isDL && isID;
+		return isDL;
 	}
+
 
 	@Override
 	public Userlicense storeDriverDetails(String firstName, String lastName, String license, long expiry) {
