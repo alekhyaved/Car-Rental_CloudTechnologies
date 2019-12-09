@@ -5,7 +5,7 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.cloudproject2.Model.Identification;
 import com.cloudproject2.Repository.IdentificationRepository;
-import com.cloudproject2.Service.CheckIfDriverLicenseService;
+import com.cloudproject2.Service.DriverLicenseService;
 import com.cloudproject2.Service.IdentificationService;
 import com.cloudproject2.exception.SystemException;
 import com.cloudproject2.util.Utils;
@@ -33,7 +33,7 @@ public class IdentificationServiceImpl implements IdentificationService {
 
   private final AmazonS3 amazonS3;
   private final IdentificationRepository identificationRepository;
-  private final CheckIfDriverLicenseService driverLicenseService;
+  private final DriverLicenseService driverLicenseService;
 
   @Override
   public Identification updateIdentification(Identification identification) {

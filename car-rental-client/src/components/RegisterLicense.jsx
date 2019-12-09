@@ -10,6 +10,7 @@ import { Redirect } from "react-router-dom";
 
 const CURRENT_USER = 'currentUser'
 
+
 export default class RegisterLicense extends Component {
 
   constructor(props) {
@@ -63,25 +64,32 @@ export default class RegisterLicense extends Component {
           axios.post(config.BackendUrl + '/verification/check/' + id)
             .then(response2 => {
               if (response2.data.result == 'PASS') {
-                var newFormData = new FormData()
-                newFormData.append('photo', response1.data.s3Key)
-                newFormData.append('isBlacklisted',response1.data.blacklisted)
-                axios.post(config.BackendUrl + '/rekognize', newFormData)
+                // newFormData.append('photo', response1.data.s3Key)
+                // newFormData.append('isBlacklisted',response1.data.blacklisted)
+                axios.get(config.apiGateWayUrl + 'driverlicense?fileName='+response1.data.s3Key)
                   .then(response3 => {
-                    console.log("success" + JSON.stringify(response3.data))
-                    var {license, firstname, lastname} = response3.data
-                    console.log("license : " + license)
-                    console.log("firstname : " + firstname)
-                    console.log("lastname : " + lastname)
-                    //localStorage.setItem(CURRENT_USER_LICENSE, license)
-                    //localStorage.setItem(CURRENT_USER_FIRSTNAME, firstname)
-                    //localStorage.setItem(CURRENT_USER_LASTNAME, lastname)
-
-
-                    this.setState(() => ({
-                      fileSubmitted: true,
-                    }));
-                  })
+                    console.log("success " + JSON.stringify(response3.data))
+                    var {license, firstname, lastname, expiryDate} = response3.data.body
+                    console.log("Trigger save lic call") 
+                    var newFormData = new FormData()
+                    newFormData.append("firstName",firstname)
+                    newFormData.append("lastName",lastname)
+                    newFormData.append("license",license)
+                    newFormData.append("expiry",expiryDate)
+                    axios.post(config.BackendUrl + '/license', newFormData)
+                    .then(response4 => {
+                      console.log("final response : "+ JSON.stringify(response4))
+                      this.setState(() => ({
+                        fileSubmitted: true,
+                      }));
+                    })
+                    })
+                    .catch(error => {
+                      console.log(error)
+                    })
+                    .finally(() => {
+                      this.stopReloading()
+                    })
                   .catch(error => {
                     console.log(error)
                   })
