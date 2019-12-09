@@ -21,17 +21,17 @@ Amazon Rekognition, Amazon S3, AWS Elastic BeanStalk, AWS EC2, AWS CloudFront, A
 
 # Advantages: 
 
-Highly available 
-Security
-Disaster Recovery 
-Fault tolerance
+Highly available, 
+Security,
+Disaster Recovery, 
+Fault tolerance,
 Cost optimization
 
 
 # Website access: 
 
-Registered User 
+1. Registered User 
 
-Administrator 
+2. Administrator 
 
 
