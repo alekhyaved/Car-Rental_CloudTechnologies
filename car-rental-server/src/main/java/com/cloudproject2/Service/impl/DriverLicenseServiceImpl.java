@@ -35,7 +35,7 @@ public class DriverLicenseServiceImpl implements DriverLicenseService {
 
 	private static final String LABEL_DL = "Driving License";
 	private static final String LABEL_ID = "Id Cards";
-	private static final float CONFIDENCE_LEVEL = 89F;
+	private static final float CONFIDENCE_LEVEL = 75F;
 	private static final int MAX_LEVELS = 5;
 
 
