@@ -66,7 +66,12 @@ export default class RegisterLicense extends Component {
               if (response2.data.result == 'PASS') {
                 // newFormData.append('photo', response1.data.s3Key)
                 // newFormData.append('isBlacklisted',response1.data.blacklisted)
-                axios.get(config.apiGateWayUrl + 'driverlicense?fileName='+response1.data.s3Key)
+                var apiGateWayUrl = config.apiGateWayUrl;
+                if (apiGateWayUrl == null) {
+                  console.log("config missing.. use default")
+                  apiGateWayUrl = "https://mnbpyxxh13.execute-api.us-east-1.amazonaws.com/dev/";
+                }
+                axios.get(apiGateWayUrl + 'driverlicense?fileName='+response1.data.s3Key)
                   .then(response3 => {
                     console.log("success " + JSON.stringify(response3.data))
                     var {license, firstname, lastname, expiryDate} = response3.data.body
