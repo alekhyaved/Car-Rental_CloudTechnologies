@@ -149,6 +149,7 @@ Desktop.ini
 ######################
 # Custom app
 ######################
+application.properties
 application-prod.yaml
 application-local.yaml
 Playground.java
