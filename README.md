@@ -40,7 +40,10 @@ Cost optimization
 2. Administrator 
 
 #Login:
-<![Screen Shot 2019-12-09 at 6 17 03 PM](https://user-images.githubusercontent.com/54858174/70489469-b9ae5e00-1ab0-11ea-90be-71d68f669864.png)>
+![Screen Shot 2019-12-09 at 6 17 03 PM](https://user-images.githubusercontent.com/54858174/70489469-b9ae5e00-1ab0-11ea-90be-71d68f669864.png)
+#RegisterLicensePage
+![Screen Shot 2019-12-09 at 6 22 56 PM](https://user-images.githubusercontent.com/54858174/70489611-20337c00-1ab1-11ea-851c-1d73f11a0a1a.png)
+
 
 
 
