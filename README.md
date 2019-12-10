@@ -46,6 +46,9 @@ Cost optimization
 #BookingDetailsPage
 ![Screen Shot 2019-12-09 at 6 25 31 PM](https://user-images.githubusercontent.com/54858174/70489701-57a22880-1ab1-11ea-96a5-9125ef3a8582.png)
 
+#chatBot
+![Screen Shot 2019-12-09 at 6 27 33 PM](https://user-images.githubusercontent.com/54858174/70489848-a94ab300-1ab1-11ea-8cc5-ea8b4a14dfbc.png)
+
 
 
 
