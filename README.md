@@ -8,10 +8,10 @@ ISA : [Rajalakshmi Babu](https://www.linkedin.com/in/rajalakshmib/)
 
 Student LinkedIn Profile: 
 
-[Leela Alekhya Vedula](https://www.linkedin.com/in/leela-alekhya-vedula-79013a174/)
-[Anvitha Karanam](https://www.linkedin.com/in/anvitha-karanam-546589121/)
-[Manisha Yacham]
-[Chi Hoang]
+[Leela Alekhya Vedula](https://www.linkedin.com/in/leela-alekhya-vedula-79013a174/)  
+[Anvitha Karanam](https://www.linkedin.com/in/anvitha-karanam-546589121/)  
+[Manisha Yacham]  
+[Chi Hoang](https://www.linkedin.com/in/choang102/)  
 
 
 Project application Description: This is a Car rental web based application which allows user to upload a valid license and book a car application. The code is implemented using Java Springboot framework, React JS and also uses Amazon services to deploy onto cloud.
